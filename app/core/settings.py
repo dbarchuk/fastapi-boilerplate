@@ -17,9 +17,9 @@ class Settings(BaseSettings):
     APP_NAME: str = Field("FastAPI")
 
     # Database settings
-    POSTGRES_PASSWORD: str = Field("postgres")
-    POSTGRES_USER: str = Field("postgres")
-    POSTGRES_DB: str = Field("main-db")
+    POSTGRES_PASSWORD: str = Field(...)
+    POSTGRES_USER: str = Field(...)
+    POSTGRES_DB: str = Field(...)
     POSTGRES_HOST: str = Field("localhost")
     POSTGRES_PORT: int = Field(5432)
     POSTGRES_ECHO: bool = Field(False)
@@ -38,7 +38,9 @@ class Settings(BaseSettings):
 
 @lru_cache
 def get_settings():
-    return Settings(_env_file="../.env")
+    from dotenv import load_dotenv
+    load_dotenv()
+    return Settings()
 
 
 settings = get_settings()
