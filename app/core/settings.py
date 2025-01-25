@@ -11,7 +11,10 @@ class Settings(BaseSettings):
     RELOAD: bool = Field(default=False)
     PORT: int = Field(default=8000)
     WORKERS: int = Field(default=1)
+
+    # LOGS
     LOG_LEVEL: Literal["critical", "error", "warning", "info", "debug", "trace"] = Field("info")
+    LOGFIRE_TOKEN: str | None = Field(None)
 
     # API INFO settings
     APP_NAME: str = Field("FastAPI")
@@ -35,6 +38,7 @@ class Settings(BaseSettings):
     @cached_property
     def postgres_uri_sync(self) -> str:
         return f"postgresql+psycopg2://{self.POSTGRES_USER}:{self.POSTGRES_PASSWORD}@{self.POSTGRES_HOST}:{self.POSTGRES_PORT}"
+
 
 @lru_cache
 def get_settings():

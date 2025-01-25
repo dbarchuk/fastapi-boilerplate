@@ -1,3 +1,6 @@
+make docker:
+	docker compose up --build
+
 migrate:
 	poetry run alembic upgrade head
 

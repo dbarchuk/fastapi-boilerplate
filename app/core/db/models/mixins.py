@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from pydantic import UUID4
-from sqlalchemy import DateTime, text
+from sqlalchemy import BIGINT, DateTime, text
 from sqlalchemy.orm import Mapped, declarative_mixin, mapped_column
 from sqlalchemy.types import Uuid
 
@@ -15,6 +15,10 @@ class UUIDMixin:
         server_default=text("gen_random_uuid()")
     )
 
+
+@declarative_mixin
+class IntIDMixin:
+    id: Mapped[int] = mapped_column(BIGINT,primary_key=True)
 
 @declarative_mixin
 class CreatedAtMixin:
